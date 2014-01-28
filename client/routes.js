@@ -27,6 +27,11 @@ Router.map(function() {
 		},
 	});
 
+	//Client page
+	this.route('user', {
+		path: '/user/:_id'
+	});
+
 	//Homepage
 	this.route('home', {
 		path: '/:error?',
@@ -43,6 +48,10 @@ Router.map(function() {
 			if (Meteor.user() && (Meteor.user().profile
 				&& Meteor.user().profile.admin)) {
 				Router.go('manage');
+				this.stop();
+			}
+			else if (Meteor.user()) {
+				Route.go('user', {_id: Meteor.userId()});
 				this.stop();
 			}
 		}

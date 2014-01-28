@@ -1,22 +1,13 @@
 /*
-** Redirect user depending on his type
-**
-** @author: Stephane Barale <stephane.barale@gmail.com>
+** Client
 */
-/*
-if (Meteor.user) {
-	if (Meteor.user() && Meteor.user().profile.admin == true) {
-		Router.go('manage');
+
+//Set active to false
+Meteor.logout(function () {
+	if (Meteor.user() && Meteor.user().profile
+		&& Meteor.user().profile.active == true) {
+		Meteor.user().profile.active = function () {
+			return false;
+		};
 	}
-	else if (Meteor.user() && !Meteor.user().profile.admin) {
-		Template.home.helpers({
-			error: function () {
-				return "You don't have permission to acces '/manage'.";
-			}
-		});
-	}
-}
-else {
-	Router.go('home');
-}
-*/
+});

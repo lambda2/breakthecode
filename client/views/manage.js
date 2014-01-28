@@ -1,13 +1,13 @@
-Questions = new Meteor.Collection("questions");
-Parties = new Meteor.Collection("parties");
 
 Template.manage.helpers(
 {
-	test_variable: function() {
-		return 'Ceci est une variable de test qui est envoyee dans le template "manage"'
+	nb_users: function()
+	{
+		return (Queue.find().count());
 	},
 	questions: function()
 	{
+		
 		if (Questions.find().fetch().length == 0)
 		{
 
@@ -44,22 +44,24 @@ Template.manage.helpers(
 					categorie : "Culture Generale"
 				}
 			]
-
-			Questions.insert(questions);
+			_.each(questions, function(value, key, list){
+				console.log("value = ", value);
+				Questions.insert(value);
+			});
 		}
 		else
 		{
-			console.log("ya de trucs");
+			console.log("ya des trucs");
 		}
-		var q = Questions.find().fetch();
-		return (q);
+		console.log(Questions.find({}).fetch());
+		return Questions.find({}).fetch();
 	}
 });
 
 Template.manage.events(
 {
-	'click #button-drop-db': function(event, template)
+	'click #button_start': function(event, template)
 	{
-		Questions.remove(Questions.find().fetch());
+		console.log("Debut du quizz !");
 	}
 });

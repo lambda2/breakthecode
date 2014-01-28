@@ -2,42 +2,46 @@
 
 <template name="manage">
 	 <div class="main-container">
-            <div class="main wrapper clearfix">
+			<div class="main wrapper clearfix">
 
-                <article>
-                    <header>
-                        <h1>Voici la liste des questions :</h1>
-                        {{#each questions }}
-                        	<p>{{ question }}</p>
-                        {{/each}}
-                        	<p>{{ questions }}</p>
-                    </header>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <section>
-                        <h2>article section h2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices. Proin in est sed erat facilisis pharetra.</p>
-                    </section>
-                    <footer>
-                        <h3>article footer h3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor.</p>
-                    </footer>
-                </article>
+				<article>
+					<header>
+						<h1>Voici la liste des questions :</h1>
+					</header>
+					<section>
+						{{#each questions }}
+							<h3>{{ question }}</h3>
+							<ul>
+							{{#each reponses}}
+								<li>
+								{{#if valid}}
+									<span style="color: green">{{ reponse }}</span>
+								{{else}}
+									<span style="color: red">{{ reponse }}</span>
+								{{/if}}
+								</li>
+							{{/each}}
+							</ul>
+						{{/each}}
+					</section>
+					<footer>
+						<button id="button_start">Demarrer le quizz</button>
+					</footer>
+				</article>
 
-                <aside>
-                    <h3>aside</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sodales urna non odio egestas tempor. Nunc vel vehicula ante. Etiam bibendum iaculis libero, eget molestie nisl pharetra in. In semper consequat est, eu porta velit mollis nec. Curabitur posuere enim eget turpis feugiat tempor. Etiam ullamcorper lorem dapibus velit suscipit ultrices.</p>
-                    <button id="button-drop-db">Vider les questions</button>
-                </aside>
+				<aside>
+					<h3>Status</h3>
+					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
+				</aside>
 
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
+			</div> <!-- #main -->
+		</div> <!-- #main-container -->
 
-        <div class="footer-container">
-            <footer class="wrapper">
-                <h3>footer</h3>
-            </footer>
-        </div>
+<!-- Eventuellement, un footer... (on s'en fout un peu...)
+		<div class="footer-container">
+			<footer class="wrapper">
+				<h3>footer</h3>
+			</footer>
+		</div>
+-->
 </template>

@@ -6,7 +6,7 @@ Router.map(function()
 {
 
   this.route('home', {
-    path: '/',
+    path: '/:error?',
     template: 'home'
   });
 

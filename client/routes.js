@@ -45,6 +45,13 @@ Router.map(function() {
 				Router.go('manage');
 				this.stop();
 			}
+			else if(Meteor.user())
+			{
+				Queue.upsert({
+					user_id : Meteor.userId(),
+					status : "attente"
+				});
+			}
 		}
 	});
 });

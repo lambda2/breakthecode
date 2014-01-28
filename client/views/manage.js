@@ -1,11 +1,9 @@
-Questions = new Meteor.Collection("questions");
-Parties = new Meteor.Collection("parties");
 
 Template.manage.helpers(
 {
 	nb_users: function()
 	{
-		return (Meteor.users.find().count());
+		return (Queue.find().count());
 	},
 	questions: function()
 	{

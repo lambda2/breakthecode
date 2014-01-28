@@ -2,8 +2,7 @@ Router.configure({
 	layout: 'layout'
 });
 
-Router.map(function()
-{
+Router.map(function() {
 
   // The manager URL
   this.route('manage', {
@@ -19,7 +18,7 @@ Router.map(function()
   			&& !Meteor.user().profile.admin))
   		{
 	        // render the login template but keep the url in the browser the same
-	        this.render('home');
+	        Router.go('home', {error: 1});
 	        // stop the rest of the before hooks and the action function 
 	        this.stop();
 	    }
@@ -28,7 +27,15 @@ Router.map(function()
 
   this.route('home', {
   	path: '/:error?',
-  	template: 'home'
+  	template: 'home',
+	data: function () {
+		if (this.params.error) {
+			return {error: this.params.error};
+		}
+		else {
+			return {};
+		}
+	}
   });
 
 });

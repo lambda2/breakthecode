@@ -2,7 +2,7 @@
 ** If client is not connected or not admin.
 ** Redirect him to homepage
 */
-if (!Meteor.user || !Meteor.user.profile.admin) {
+if (!Meteor.user || (Meteor.user.profile && !Meteor.user.profile.admin)) {
 	Router.go('home', {error: 1});
 }
 
@@ -32,16 +32,17 @@ Template.manage.helpers(
 		// 		categorie : "Culture Generale"
 		// 	}
 		// ]
-		Questions.insert({
-				question : "Qui est l'auteur(e) de James Bond ?",
-				reponses : [
-					{reponse : "Ian Fleming", valid : true},
-					{reponse : "Arthur Conan Doyle", valid : false},
-					{reponse : "Mary Shelley", valid : false},
-					{reponse : "Marc LŽvy", valid : false},
-				],
-				categorie : "Culture Generale"
-			});
+		Questions.insert(
+		{
+			question : "Qui est l'auteur(e) de James Bond ?",
+			reponses : [
+				{reponse : "Ian Fleming", valid : true},
+				{reponse : "Arthur Conan Doyle", valid : false},
+				{reponse : "Mary Shelley", valid : false},
+				{reponse : "Marc LŽvy", valid : false},
+			],
+			categorie : "Culture Generale"
+		});
   	}
   	else
   	{

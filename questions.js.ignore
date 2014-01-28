@@ -2,6 +2,19 @@ Quizobar
 
 Rounds de questions
 
+var questions = 
+[
+	{
+		question : "Qui est l'auteur(e) de James Bond ?",
+		reponses : [
+			{reponse : "Ian Fleming", valid : true},
+			{reponse : "Arthur Conan Doyle", valid : false},
+			{reponse : "Mary Shelley", valid : false},
+			{reponse : "Marc Lévy", valid : false},
+		],
+		categorie : "Culture Generale"
+	}
+]
 
 Round 1 – Culture Générale :
 

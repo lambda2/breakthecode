@@ -8,3 +8,5 @@ accounts-base
 accounts-password
 iron-router
 accounts-ui
+less
+jquery

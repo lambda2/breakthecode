@@ -1,3 +1,10 @@
+/*
+** If client is not connected or not admin.
+** Redirect him to homepage
+*/
+if (!Meteor.user || !Meteor.user.profile.admin) {
+	Router.go('home', {error: 1});
+}
 
 Questions = new Meteor.Collection("questions");
 

@@ -2,7 +2,7 @@
 ** If client is not connected or not admin.
 ** Redirect him to homepage
 */
-if (!Meteor.user || !Meteor.user.profile.admin) {
+if (!Meteor.user || (!Meteor.user.profile && !Meteor.user.profile.admin)) {
 	Router.go('home', {error: 1});
 }
 

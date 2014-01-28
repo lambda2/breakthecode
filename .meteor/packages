@@ -9,3 +9,5 @@ accounts-password
 iron-router
 less
 jquery
+autopublish
+insecure

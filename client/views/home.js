@@ -5,6 +5,10 @@ Template.home.helpers(
   },
   additional: function() {
     return 'Howdy there, future releases will include even more smart defaults.'
+  },
+  all: function()
+  {
+    return (this.params);
   }
 });
 

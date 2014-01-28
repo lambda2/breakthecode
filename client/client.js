@@ -3,6 +3,7 @@
 **
 ** @author: Stephane Barale <stephane.barale@gmail.com>
 */
+/*
 if (Meteor.user) {
 	if (Meteor.user() && Meteor.user().profile.admin == true) {
 		Router.go('manage');
@@ -18,3 +19,4 @@ if (Meteor.user) {
 else {
 	Router.go('home');
 }
+*/

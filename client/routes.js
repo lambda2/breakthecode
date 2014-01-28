@@ -28,7 +28,14 @@ Router.map(function()
 
   this.route('home', {
   	path: '/:error?',
-  	template: 'home'
+  	template: 'home',
+  	data: function()
+  	{
+  		if (this.params)
+	  		return ({error: this.params.error});
+  		else
+  			return {};
+  	}
   });
 
 });

@@ -21,6 +21,26 @@ License: Private
     position: relative;
 }
 
+.title {
+	text-align: center;
+	position: relative;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#bar-title {
+	color: #28723C;
+	text-align: center;
+	font-family: "Haymaker";
+}
+
+#stripe {
+	margin: 20px auto 20px;
+    position:relative;
+    width: 180px;
+    padding: 0 0 0;
+}
+
 .text-container {
     text-align: center;
     position: relative;

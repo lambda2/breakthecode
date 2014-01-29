@@ -256,6 +256,36 @@ var getSelectedQuestions = function()
 			console.log("On va fetch avec la categorie " + cat, cat);
 			return Questions.find({categorie : cat}).fetch();
 		}
+};
+
+var initNewGame = function()
+{
+	Session.set("current_questions", getSelectedQuestions());
+	Session.set("question_index", 0);
+	Session.set("quizz_state", "en_jeu");
+	var in_queue = Queue.find({status : "attente"}).fetch();
+	var current_q = Session.get("current_questions");
+	_.each(in_queue, function(value, key, list){
+		console.log("updating ", value);
+		Queue.update({_id : value._id}, {$set : {
+			status : "en_jeu",
+			question_courante : current_q[0]
+		}});
+	});
+};
+
+var getCurrentQuestion = function()
+{
+	if (Session.get("current_questions") != undefined
+		&& Session.get("question_index") != undefined)
+	{
+		var current_q = Session.get("current_questions");
+		return (current_q[Session.get("question_index")]);
+	}
+	else
+	{
+		return ;
+	}
 }
 
 Template.manage.helpers(
@@ -281,6 +311,17 @@ Template.manage.helpers(
 			});
 		}
 		return (getSelectedQuestions());
+	},
+	isWaiting: function()
+	{
+		if (!Session.get("quizz_state") || Session.get("quizz_state") == "attente")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 });
 
@@ -288,28 +329,89 @@ Template.manage.events(
 {
 	'click [class^="series_filter_"]': function(event, template)
 	{
-		var filter = this;
-		console.log(this);
-		console.log(template);
-		console.log(event);
 		Session.set("selected_round", _.reduce(this, function(l, r){
 			return l + r;
 		}));
 	},
 	'click #button_start': function(event, template)
 	{
-		Session.set("current_questions", getSelectedQuestions());
-		Session.set("question_index", 0);
-		Session.set("quizz_state", "en_jeu");
-		var in_queue = Queue.find({status : "attente"}).fetch();
-		var current_q = Session.get("current_questions");
-		_.each(in_queue, function(value, key, list){
-			console.log("updating ", value);
-			Queue.update({_id : value._id}, {$set : {
-				status : "en_jeu",
-				question_courante : current_q[0]
-			}});
-		});
+		initNewGame();
 		console.log("Debut du quizz !");
 	}
 });
+
+var launchTimer = function(callback)
+{
+	var e = Meteor.setInterval(function()
+	{
+		if (Session.get("quizz_timer") <= 0)
+		{
+			Meteor.clearInterval(e);
+			callback();
+		}
+		else
+		{
+			Session.set("quizz_timer", Session.get("quizz_timer") - 1);
+		}
+	}, 100);
+}
+
+var nextQuestion = function()
+{
+	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	var current_q = Session.get("current_questions");
+	Session.set("question_index", Session.get("question_index") + 1);
+	console.log("Passage a la question " + Session.get("question_index") + " !");
+	_.each(in_queue, function(value, key, list){
+		Queue.update({_id : value._id}, {$set : {
+			question_courante : current_q[Session.get("question_index")]
+		}});
+	});
+	Session.set("quizz_timer", undefined);
+};
+
+Template.roundstart.helpers({
+	/*
+	@TODO : Rajouter les equipes et leur scores
+	*/
+	teams: function()
+	{
+		return ([{}]);
+	},
+	currentQuestion: function()
+	{
+		console.log(getCurrentQuestion().reponses);
+		return getCurrentQuestion();
+	},
+	timer: function()
+	{
+		if (!Session.get("quizz_timer"))
+			return ("");
+		else
+			return (Session.get("quizz_timer"));
+	}
+});
+
+Template.roundstart.events(
+{
+	'click #question_start': function(event, template)
+	{
+		Session.set("quizz_timer", 100);
+		launchTimer(function(){
+			console.log("Fin de la question !");
+			nextQuestion();
+		});
+		console.log("Top chrono !");
+	}
+});
+
+
+
+
+
+
+
+
+
+
+

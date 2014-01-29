@@ -3,7 +3,7 @@
 <template name="manage">
 	 <div class="main-container">
 			<div class="main wrapper clearfix">
-
+			{{#if isWaiting}}
 				<article>
 					<header>
 						<h1>Voici la liste des questions :</h1>
@@ -40,7 +40,9 @@
 						{{/each}}
 					</ul>
 				</aside>
-
+			{{else}}
+				{{> roundstart}}
+			{{/if}}
 			</div> <!-- #main -->
 		</div> <!-- #main-container -->
 
@@ -51,4 +53,34 @@
 			</footer>
 		</div>
 -->
+</template>
+
+<template name="roundstart">
+	<article>
+		<header>
+			<h1>Nouveau round</h1>
+			<progress id="timer" value="{{ timer }}" max="100" min="0">
+		</header>
+		<section>
+		{{#with currentQuestion }}
+			<h3>{{ question }}</h3>
+			<ol>
+			{{#each reponses }}
+				<li class="reponse_{{ reponse }}"><a>{{ reponse }}</a></li>
+			{{/each}}
+			</ol>
+		{{/with}}
+		</section>
+		<footer>
+			<button id="question_start">Go !</button>
+		</footer>
+	</article>
+	<aside>
+		<h2>Équipes</h2>
+		<ul>
+		{{#each teams }}
+				<li>{{ nom }}<span class="right">{{ score }}</span></li>
+		{{/each}}
+		</ul>
+	</aside>
 </template>

@@ -11,11 +11,8 @@
 					{{#if en_jeu}}
 						{{>en_jeu	}}
 					{{/if}}
-
-					<aside>
-						<h3>Status</h3>
-						<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
-					</aside>
+					<p class="wait-statuts">Status</p>
+					<p class="wait-statuts">Il y a actuellement {{ nb_users }} joueur en attente.</p>
 				{{else}}
 					{{> takepicture}}
 				{{/if}}
@@ -29,14 +26,8 @@
 <template name="attente">
 	<article>
 		<header>
-			<h1>En attente du lancement de la partie</h1>
+			<span class="wait-player">En attente du lancement de la partie</span>
 		</header>
-		<section>
-		<!-- ... -->
-		</section>
-		<footer>
-		<!-- ... -->
-		</footer>
 	</article>
 </template>
 
@@ -81,8 +72,11 @@
 <template name="groupe">
 	<article>
 		<section>
-			<div class="user-group">
-				<input type="text" id="groupName"/>
+			<div class="text-container">
+				<label for="input-user-group">Rentrez votre nom d'equipe</label>
+				<div id="input-user-group" class="user-group">
+					<input type="text" id="groupName" class="text_box" name="team_name"><br>
+				</div>
 			</div>
 		</section>
 	</article>

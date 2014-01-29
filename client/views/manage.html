@@ -74,7 +74,7 @@
 		{{/with}}
 		</section>
 		<footer>
-			<button id="question_start">Go !</button>
+			{{{ event_button }}}
 		</footer>
 	</article>
 	<aside>
@@ -90,3 +90,12 @@
 		</ul>
 	</aside>
 </template>
+
+<template name="progress">
+	{{#with progression }}
+		<h2>Progression</h2>
+		<p>{{ r }} / {{ total }} réponses</p>
+		<p>{{ goor_r }} / {{ r }} bonnes réponses</p>
+	{{/with}}
+</template>
+

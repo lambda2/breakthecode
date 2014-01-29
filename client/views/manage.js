@@ -240,7 +240,23 @@
 		],
 		categorie : "Alcool"
 	}
-]
+];
+
+// Un petit helper qui va nous retourner nos questions.
+var getSelectedQuestions = function()
+{
+		// Si on a pas selectionne de round, on affiche toutes les questions
+		if (Session.get("selected_round") == undefined)
+		{
+			return Questions.find({}).fetch();
+		}
+		else
+		{
+			var cat = Session.get("selected_round");
+			console.log("On va fetch avec la categorie " + cat, cat);
+			return Questions.find({categorie : cat}).fetch();
+		}
+}
 
 Template.manage.helpers(
 {
@@ -248,9 +264,15 @@ Template.manage.helpers(
 	{
 		return (Queue.find().count());
 	},
+	series: function()
+	{
+		var elts = Questions.find().fetch();
+		var o = (_.groupBy(elts, function(e){ return e.categorie }));
+		return _.keys(o);
+	},
 	questions: function()
 	{
-		
+		// Si les questions n'existent pas, on les ajoute dans la bdd.
 		if (Questions.find().fetch().length == 0)
 		{
 			_.each(QUIZZ, function(value, key, list){
@@ -258,18 +280,35 @@ Template.manage.helpers(
 				Questions.insert(value);
 			});
 		}
-		return Questions.find({}).fetch();
+		return (getSelectedQuestions());
 	}
 });
 
 Template.manage.events(
 {
+	'click [class^="series_filter_"]': function(event, template)
+	{
+		var filter = this;
+		console.log(this);
+		console.log(template);
+		console.log(event);
+		Session.set("selected_round", _.reduce(this, function(l, r){
+			return l + r;
+		}));
+	},
 	'click #button_start': function(event, template)
 	{
+		Session.set("current_questions", getSelectedQuestions());
+		Session.set("question_index", 0);
+		Session.set("quizz_state", "en_jeu");
 		var in_queue = Queue.find({status : "attente"}).fetch();
+		var current_q = Session.get("current_questions");
 		_.each(in_queue, function(value, key, list){
 			console.log("updating ", value);
-			Queue.update({_id : value._id}, {$set : {status : "en_jeu"}});
+			Queue.update({_id : value._id}, {$set : {
+				status : "en_jeu",
+				question_courante : current_q[0]
+			}});
 		});
 		console.log("Debut du quizz !");
 	}

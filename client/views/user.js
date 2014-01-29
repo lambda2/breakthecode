@@ -21,6 +21,10 @@ Template.user.helpers(
 		else
 			return false;
 	},
+	status : function()
+	{
+		return (Queue.find({user_id : Meteor.userId()}));
+	},
 	nb_users : function()
 	{
 		return (Queue.find().count());

@@ -57,7 +57,10 @@ Router.map(function() {
 				{
 					Queue.insert({
 						user_id : Meteor.userId(),
-						status : "attente"
+						status : "attente",
+						question_courante : undefined,
+						score : 0,
+						score_round : 0
 					});
 				}
 

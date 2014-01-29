@@ -10,10 +10,11 @@ License: Private
 .body {
     font-size: 1em;
     line-height: 1.4;
-    background: #302314; 
+    background: #302314;
+    background-image: url(assets/bg-bois.jpg); 
     position: absolute;
     width: 480px;
-    height: 640px;
+    height: 600px;
 }
 
 .header-container {
@@ -28,10 +29,94 @@ License: Private
 	font-weight: bold;
 }
 
+#button {
+	color: #000000;
+	text-align: center;
+	text-decoration:none;
+}
+
+#button a{
+	display:block;
+	text-decoration:none;
+	height: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	font-size: 3em;
+	background-position: left center;
+	background-size: 425px 200px;
+}
+
+#button a:active {
+	color: #00ff00;
+	text-align: center;
+	text-decoration:none;
+	height: 100%;
+	width: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	background-position: right center;
+}
+
+#button a:hover {
+	color: #00ff00;
+	text-align: center;
+	text-decoration:none;
+	height: 100%;
+	width: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	background-position: right center;
+}
+
+#button2 {
+	color: #000000;
+	text-align: center;
+	text-decoration:none;
+
+}
+
+#button2 a{
+	display:block;
+	text-decoration:none;
+	height: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	font-size: 3em;
+	background-position: left center;
+	background-size: 425px 200px;
+}
+
+#button2 a:hover {
+	color: #00ff00;
+	text-align: center;
+	text-decoration:none;
+	height: 100%;
+	width: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	background-position: right center;
+}
+
+#button2 a:active {
+	color: #00ff00;
+	text-align: center;
+	text-decoration:none;
+	height: 100%;
+	width: 100%;
+	background-image: url(assets/boutons.png);
+	background-size: 425px 200px;
+	background-position: right center;
+}
+
 #bar-title {
 	color: #28723C;
 	text-align: center;
-	font-family: "Haymaker";
+	font-family: "haymaker";
+}
+
+@font-face {
+    font-family: "haymaker";
+    src: url('assets/Haymaker.ttf');
 }
 
 #stripe {

@@ -58,6 +58,7 @@ Template.takepicture.events({
 			profile: {
 				admin: false,
 				type: "user",
+				groupname: true,
 				picture: true
 			}
 		}});

@@ -1,45 +1,44 @@
 
 
 <template name="manage">
-	 <div class="main-container">
-			<div class="main wrapper clearfix">
+	 <div class="main-container" id="adm-main-container">
+			<div class="main wrapper clearfix" id="adm">
 			{{#if isWaiting}}
-				<article>
-					<header>
-						<h1>Voici la liste des questions :</h1>
+				<article class="adm-group">
+					<header class="adm-header">
+						<h2>Voici la liste des questions :</h2>
 					</header>
-					<section>
+					<section class="adm-section">
 						{{#each questions }}
-							<h3>{{ question }}</h3>
+							<h4 class="adm-ques">{{ question }}</h4>
 							<ul>
 							{{#each reponses}}
 								<li>
 								{{#if valid}}
-									<span style="color: green">{{ reponse }}</span>
+									<span class="adm-ques-ans">{{ reponse }}</span>
 								{{else}}
-									<span style="color: red">{{ reponse }}</span>
+									<span class="adm-ques-fake">{{ reponse }}</span>
 								{{/if}}
 								</li>
 							{{/each}}
 							</ul>
 						{{/each}}
 					</section>
-					<footer>
-						<button id="button_start">Demarrer le quizz</button>
-					</footer>
 				</article>
-
-				<aside>
-					<h3>Status</h3>
+				<aside class="info-usr-wait">
+					<h4>Status</h4>
 					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
-					<h3>Series :</h3>
+					<h4>Series :</h4>
 					<ul>
 						<li class="series_filter_all"><a>Toutes</a></li>
 						{{#each series }}
 							<li data-filter="{{ this }}" class="series_filter_{{ this }}"><a>{{ this }}</a></li>
 						{{/each}}
 					</ul>
-				</aside>
+					</aside>
+					<footer class="adm-footer">
+						<button id="button_start">Demarrer le quizz</button>
+					</footer>
 			{{else}}
 				{{#if isSummary}}
 					{{> summary}}

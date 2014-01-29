@@ -1,0 +1,49 @@
+
+<template name="user">
+	 <div class="main-container">
+			<div class="main wrapper clearfix">
+
+				{{#if attente}}
+					{{>attente}}
+				{{/if}}
+
+				{{#if en_jeu}}
+					{{>en_jeu}}
+				{{/if}}
+
+				<aside>
+					<h3>Status</h3>
+					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
+				</aside>
+
+			</div> <!-- #main -->
+		</div> <!-- #main-container -->
+</template>
+
+<template name="attente">
+	<article>
+		<header>
+			<h1>En attente du lancement de la partie</h1>
+		</header>
+		<section>
+		<!-- ... -->
+		</section>
+		<footer>
+		<!-- ... -->
+		</footer>
+	</article>
+</template>
+
+<template name="en_jeu">
+	<article>
+		<header>
+			<h1>En attente du lancement de la partie</h1>
+		</header>
+		<section>
+		<!-- ... -->
+		</section>
+		<footer>
+		<!-- ... -->
+		</footer>
+	</article>
+</template>

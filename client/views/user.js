@@ -5,6 +5,9 @@ Files = new Meteor.Collection(null);
 
 Template.user.helpers(
 {
+	user_group : function () {
+		return Meteor.user().profile.groupname;
+	},
 	take_picture : function () {
 		return Meteor.user().profile.picture;
 	},
@@ -59,5 +62,24 @@ Template.takepicture.events({
 			}
 		}});
 		Queue.update({_id : queue[0]._id}, {$set : {picture_name: mFile.name}});
+	}
+});
+
+Template.groupe.events({
+	'change input#groupName': function (evt) {
+		var name = $('.user-group-form input#groupName').val().trim();
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+
+		Queue.update({_id : queue[0]._id}, {$set : {
+			group_name: name
+		}});
+
+		Meteor.users.update({_id : Meteor.userId()}, {$set : {
+			profile: {
+				admin: false,
+				type: "user",
+				groupname: true
+			}
+		}});
 	}
 });

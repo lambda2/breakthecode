@@ -2,21 +2,25 @@
 <template name="user">
 	<div class="main-container">
 		<div class="main wrapper clearfix">
-			{{#if take_picture}}
-				{{#if attente}}
-					{{>attente}}
-				{{/if}}
+			{{#if user_group}}
+				{{#if take_picture}}
+					{{#if attente}}
+						{{>attente}}
+					{{/if}}
 
-				{{#if en_jeu}}
-					{{>en_jeu	}}
-				{{/if}}
+					{{#if en_jeu}}
+						{{>en_jeu	}}
+					{{/if}}
 
-				<aside>
-					<h3>Status</h3>
-					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
-				</aside>
+					<aside>
+						<h3>Status</h3>
+						<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
+					</aside>
+				{{else}}
+					{{> takepicture}}
+				{{/if}}
 			{{else}}
-				{{> takepicture}}
+				{{> groupe}}
 			{{/if}}
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
@@ -57,6 +61,18 @@
 			<div class="picture">
 				<form class="take-picture-group-form">
 					<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+				</form>
+			</div>
+		</section>
+	</article>
+</template>
+
+<template name="groupe">
+	<article>
+		<section>
+			<div class="user-group">
+				<form class="user-group-form">
+					<input type="text" id="groupName"/>
 				</form>
 			</div>
 		</section>

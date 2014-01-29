@@ -18,7 +18,8 @@ Accounts.onCreateUser(function (options, user) {
 		user.profile = {
 			admin: false,
 			type: "user",
-			picture: false
+			picture: false,
+			groupname: false
 		}
 	}
 	return user;

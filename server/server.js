@@ -17,6 +17,6 @@ Queue.allow({
 
 Meteor.methods({
 	uploadFile: function (file) {
-		file.save('/Users/sbarale/Project/meteorjs/breakthecode/tmp/uploads/');
+		file.save('./');
 	}
 });

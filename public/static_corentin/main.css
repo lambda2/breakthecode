@@ -1,71 +1,181 @@
 .header-container
 {
-	text-align: left;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+}
+
+@font-face {
+    font-family: "haymaker";
+    src: url('Haymaker.ttf');
+}
+
+h1
+{
+	color:#fcb94d;
+	font-family: "haymaker";
+	font-weight: lighter;
 }
 
 body
 {
+	background-image: url(bg-bois.jpg);
 	background-color: #282016;
 	color: white;
 }
 
-img.logo
+.logo
 {
-	height: 100%;
+	text-align: center;
+	/*height: 100%;
 	max-height: 100px;
-	width: auto;
+	width: auto;*/
+	max-width: 25%;
+	height: auto;
+	margin: 1em 0;
 }
 
-img.subscribe
-{
-	display: block;
-	margin-left: auto;
-	margin-right: 0px;
+.footer-container {
+	font-family: "haymaker";
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #30834e;
 }
 
-.subscribe 
+.myfooter
 {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #548251), color-stop(1, #244f21) );
-	background:-moz-linear-gradient( center top, #548251 5%, #244f21 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#548251', endColorstr='#244f21');
-	background-color:#548251;
-	-webkit-border-top-left-radius:20px;
-	-moz-border-radius-topleft:20px;
-	border-top-left-radius:20px;
-	-webkit-border-top-right-radius:20px;
-	-moz-border-radius-topright:20px;
-	border-top-right-radius:20px;
-	-webkit-border-bottom-right-radius:20px;
-	-moz-border-radius-bottomright:20px;
-	border-bottom-right-radius:20px;
-	-webkit-border-bottom-left-radius:20px;
-	-moz-border-radius-bottomleft:20px;
-	border-bottom-left-radius:20px;
-	text-indent:0;
-	border:2px solid #eeb44f;
-	display:inline-block;
-	color:#ecba56;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
-	height:50px;
-	line-height:50px;
-	width:100px;
-	text-decoration:none;
-	text-align:center;
+	width: 100%;
+	padding: 20px 0 20px 0;
+	position: absolute;
+	background-color: #30834e;
+	bottom: 0;
+	left: 0;
 }
 
-.subscribe:hover
-{
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #244f21), color-stop(1, #548251) );
-	background:-moz-linear-gradient( center top, #244f21 5%, #548251 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#244f21', endColorstr='#548251');
-	background-color:#244f21;
+.foot-text {
+	color: #fff;
 }
 
-.subscribe:active
+.block1
 {
-	position:relative;
-	top:1px;
+	float:left;
+	width: 45%;
+	height: 400px;
+	margin-left: 3%;
+}
+
+.block1_1
+{
+	width: 100%;
+}
+
+.block1_2
+{
+	width: 100%;
+	padding: 20px 0px 20px 0px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	background-color: #fcb94d;
+	padding-top: 10px;
+	text-align: center;
+	color: #000;
+}
+
+
+.block1_3
+{
+	width: 100%;
+	height: 60%;
+}
+
+.reponse
+{
+	font-size: normal;
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.clearblock
+{
+	width: 100%;
+	border: 1px dotted white;
+}
+
+.block2
+{
+	float:left;
+	width: 22%;
+	height: 400px;
+	margin-left: 3%;
+}
+
+.block3
+{
+	float:left;
+	width: 22%;
+	height: 400px;
+	margin-left: 3%;
+}
+
+.round {
+	float: left;
+	text-align: center;
+	width:28px;
+	height: 62px;
+	font-family: "Haymaker";
+	font-size: 1.3em;
+}
+
+.truc {
+	margin-left: 10px;
+}
+
+.round-stand {
+	float: left;
+	text-align: center;
+	width:28px;
+	height: 35px;
+	margin-bottom: 3px;
+	font-family: "Haymaker";
+	font-size: 1.3em;
+}
+
+.puce-round-stand {
+	background:#fcb94d;
+	padding-top: 3px;
+	float: inherit;
+	border-radius:50%;
+	display: table-cell;
+	width:24px;
+	height:24px;
+	vertical-align: bottom;
+}
+
+.puce-round {
+	background:#fcb94d;
+	margin-top: 7px;
+	padding-top: 3px;
+	float: inherit;
+	border-radius:50%;
+	display: table-cell;
+	width:28px;
+	height:28px;
+	vertical-align: bottom;
+}
+
+.nb-reponses {
+	text-align: center;
+}
+
+.nb-rep {
+	color:#fcb94d;
+}
+
+.timer {
+	text-align: center;
 }

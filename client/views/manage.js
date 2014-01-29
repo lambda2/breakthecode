@@ -376,7 +376,7 @@ Template.roundstart.helpers({
 	*/
 	teams: function()
 	{
-		return ([{}]);
+		return (Queue.find({status : "en_jeu"}).fetch());
 	},
 	currentQuestion: function()
 	{

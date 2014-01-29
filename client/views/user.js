@@ -1,10 +1,11 @@
 /*
 ** Users's home
 */
-
-
 Template.user.helpers(
 {
+	take_picture : function () {
+		return Meteor.user().profile.picture;
+	},
 	attente : function()
 	{
 		var status = Queue.find({user_id : Meteor.userId()}).fetch();

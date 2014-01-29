@@ -17,7 +17,8 @@ Accounts.onCreateUser(function (options, user) {
 	else {
 		user.profile = {
 			admin: false,
-			type: "user"
+			type: "user",
+			picture: false
 		}
 	}
 	return user;

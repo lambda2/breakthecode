@@ -1,8 +1,8 @@
 
 <template name="user">
-	 <div class="main-container">
-			<div class="main wrapper clearfix">
-
+	<div class="main-container">
+		<div class="main wrapper clearfix">
+			{{#if take_picture}}
 				{{#if attente}}
 					{{>attente}}
 				{{/if}}
@@ -15,9 +15,11 @@
 					<h3>Status</h3>
 					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
 				</aside>
-
-			</div> <!-- #main -->
-		</div> <!-- #main-container -->
+			{{else}}
+				{{> take-picture}}
+			{{/if}}
+		</div> <!-- #main -->
+	</div> <!-- #main-container -->
 </template>
 
 <template name="attente">
@@ -46,5 +48,15 @@
 		<footer>
 		<!-- ... -->
 		</footer>
+	</article>
+</template>
+
+<template name="take-picture">
+	<article>
+		<section>
+			<div class="picture">
+				<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+			</div>
+		</section>
 	</article>
 </template>

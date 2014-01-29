@@ -262,6 +262,7 @@ var initNewGame = function()
 {
 	Session.set("current_questions", getSelectedQuestions());
 	Session.set("question_index", 0);
+	Session.set("question_total", getSelectedQuestions().length);
 	Session.set("quizz_state", "en_jeu");
 	var in_queue = Queue.find({status : "attente"}).fetch();
 	var current_q = Session.get("current_questions");
@@ -269,7 +270,9 @@ var initNewGame = function()
 		console.log("updating ", value);
 		Queue.update({_id : value._id}, {$set : {
 			status : "en_jeu",
-			question_courante : current_q[0]
+			question_courante : current_q[0],
+			current_index: Session.get("question_index"),
+			total_index: Session.get("question_total")
 		}});
 	});
 };
@@ -340,22 +343,61 @@ Template.manage.events(
 	}
 });
 
+/*
+** Va dire a tous les joueurs que leur timer est lancé !
+*/
+var timerIsOn = function()
+{
+	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	_.each(in_queue, function(value, key, list)
+	{
+		/* On lance le timer pour tout les joueurs */
+		Queue.update({_id : value._id}, {$set : {timer : true}});
+	});
+}
+
+/*
+** Va dire a tous les joueurs que leur timer est fini !
+*/
+var timerIsOff = function()
+{
+	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	_.each(in_queue, function(value, key, list)
+	{
+		/* On lance le timer pour tout les joueurs */
+		Queue.update({_id : value._id}, {$set : {timer : false}});
+	});
+}
+
+/*
+** Va lancer le timer chez l'admin, et chez tous les joueurs connectés
+*/
 var launchTimer = function(callback)
 {
-	var e = Meteor.setInterval(function()
+	timerIsOn();
+	var init = Session.get("quizz_timer");
+	var u = Meteor.setInterval(function()
 	{
-		if (Session.get("quizz_timer") <= 0)
+		if (init <= 0)
 		{
-			Meteor.clearInterval(e);
-			callback();
+			Meteor.clearInterval(u);
 		}
 		else
 		{
-			Session.set("quizz_timer", Session.get("quizz_timer") - 1);
+			init--;
+			$("#timer").val(init);
 		}
 	}, 100);
+	Meteor.setTimeout(function()
+	{
+		callback();
+		timerIsOff();
+	}, 10000);
 }
 
+/*
+** Va faire passer tous les joueurs connectés a la prochaine question
+*/
 var nextQuestion = function()
 {
 	var in_queue = Queue.find({status : "en_jeu"}).fetch();
@@ -364,11 +406,51 @@ var nextQuestion = function()
 	console.log("Passage a la question " + Session.get("question_index") + " !");
 	_.each(in_queue, function(value, key, list){
 		Queue.update({_id : value._id}, {$set : {
-			question_courante : current_q[Session.get("question_index")]
+			question_courante : current_q[Session.get("question_index")],
+			current_index: Session.get("question_index"),
+			total_index: Session.get("question_total")
 		}});
 	});
 	Session.set("quizz_timer", undefined);
 };
+
+/*
+** Va analyser les reponses aux questions, et va recalculer les
+** scores en consequence.
+*/
+var recalculateScores = function()
+{
+	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+
+	_.each(in_queue, function(value, key, list)
+	{
+		// Si le joueur a donne une reponse (et qu'elle est valide)
+		if (value.reponse && value.reponse >= 0 && value.reponse < 4)
+		{
+			console.log("value.question_courante[value.reponse]",
+				value.question_courante[value.reponse]);
+			console.log("value.question_courante",
+				value.question_courante, value.reponse);
+			if (value.question_courante.reponses[value.reponse].valid)
+			{
+				console.log("Bonne reponse pour " + value.group_name);
+				Queue.update(
+					{_id : value._id},
+					{$inc : {score_round: 1, score: 1}},
+					{ multi: true }
+				);
+			}
+			else
+				console.log(value.group_name + " n'a pas donne la bonne reponse !");
+		}
+		else
+			console.log(value.group_name + " n'a même pas daigné répondre...");
+		Queue.update(
+			{_id : value._id},
+			{$set : {reponse : undefined}},
+			{ multi: true });
+	});
+}
 
 Template.roundstart.helpers({
 	/*
@@ -380,7 +462,6 @@ Template.roundstart.helpers({
 	},
 	currentQuestion: function()
 	{
-		console.log(getCurrentQuestion().reponses);
 		return getCurrentQuestion();
 	},
 	timer: function()
@@ -399,6 +480,7 @@ Template.roundstart.events(
 		Session.set("quizz_timer", 100);
 		launchTimer(function(){
 			console.log("Fin de la question !");
+			recalculateScores();
 			nextQuestion();
 		});
 		console.log("Top chrono !");

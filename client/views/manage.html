@@ -82,9 +82,9 @@
 		<ul>
 		{{#each teams }}
 				<li>
-					<img src="{{ picture_name }}">
+					<img style="max-height: 100px;" src="{{ picture_name }}">
 					<a>{{ group_name }}</a>
-					<span class="right">{{ score }}</span>
+					<span class="right">[{{ score }} points]</span>
 				</li>
 		{{/each}}
 		</ul>

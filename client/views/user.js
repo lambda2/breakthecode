@@ -78,7 +78,7 @@ Template.groupe.events({
 		Meteor.users.update({_id : Meteor.userId()}, {$set : {
 			profile: {
 				admin: false,
-				type: "user",
+				type: "user",	
 				groupname: true
 			}
 		}});

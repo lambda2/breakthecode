@@ -62,15 +62,36 @@ Router.map(function() {
 			}
 			else if (Meteor.user()) {
 				// Si l'utilisateur n'est pas dans la file d'attente, on le met !
-				if (Queue.find({user_id: Meteor.userId()}).count() == 0)
+				if (Queue.find({user_id: Meteor.userId()}).count() === 0)
 				{
 					Queue.insert({
 						user_id : Meteor.userId(),
 						status : "attente",
 						question_courante : undefined,
 						score : 0,
+						timer: false,
+						reponse: undefined,
+						current_index: undefined,
+						total_index: undefined,
 						score_round : 0
 					});
+				}
+				else
+				{
+					var id = Queue.find({user_id: Meteor.userId()}).fetch()[0];
+					console.log(id);
+					Queue.update(
+						{_id : id._id},
+						{$set : {
+							status : "attente",
+							question_courante : undefined,
+							timer: false,
+							reponse: undefined,
+							current_index: undefined,
+							total_index: undefined,
+							score_round : 0
+						}},
+						{ multi: true });
 				}
 				Router.go('user', {_id: Meteor.userId()});
 				this.stop();

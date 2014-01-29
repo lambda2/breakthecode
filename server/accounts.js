@@ -9,9 +9,18 @@
 ** Define the administrator
 */
 Accounts.onCreateUser(function (options, user) {
-	user.profile = {
-		admin: false,
-		active: true
-	};
+	if (Meteor.users.find({profile: {admin: true} }).count() == 0) {
+		user.profile = {
+			admin: true
+		}
+	}
+	else {
+		user.profile = {
+			admin: false,
+			type: "user",
+			picture: false,
+			groupname: false
+		}
+	}
 	return user;
 });

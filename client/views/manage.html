@@ -3,7 +3,7 @@
 <template name="manage">
 	 <div class="main-container">
 			<div class="main wrapper clearfix">
-
+			{{#if isWaiting}}
 				<article>
 					<header>
 						<h1>Voici la liste des questions :</h1>
@@ -32,8 +32,17 @@
 				<aside>
 					<h3>Status</h3>
 					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
+					<h3>Series :</h3>
+					<ul>
+						<li class="series_filter_all"><a>Toutes</a></li>
+						{{#each series }}
+							<li data-filter="{{ this }}" class="series_filter_{{ this }}"><a>{{ this }}</a></li>
+						{{/each}}
+					</ul>
 				</aside>
-
+			{{else}}
+				{{> roundstart}}
+			{{/if}}
 			</div> <!-- #main -->
 		</div> <!-- #main-container -->
 
@@ -44,4 +53,40 @@
 			</footer>
 		</div>
 -->
+</template>
+
+<template name="roundstart">
+	<article>
+		<header>
+			<h1>Nouveau round</h1>
+			<progress id="timer" value="{{ timer }}" max="100" min="0">
+		</header>
+		<section>
+		{{#with currentQuestion }}
+			<h3>{{ question }}</h3>
+			<ol>
+			{{#each reponses }}
+				<li class="reponse_{{ reponse }}">
+					<a>{{ reponse }}</a>
+				</li>
+			{{/each}}
+			</ol>
+		{{/with}}
+		</section>
+		<footer>
+			<button id="question_start">Go !</button>
+		</footer>
+	</article>
+	<aside>
+		<h2>Équipes</h2>
+		<ul>
+		{{#each teams }}
+				<li>
+					<img style="max-height: 100px;" src="{{ picture_name }}">
+					<a>{{ group_name }}</a>
+					<span class="right">[{{ score }} points]</span>
+				</li>
+		{{/each}}
+		</ul>
+	</aside>
 </template>

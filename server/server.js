@@ -18,5 +18,6 @@ Queue.allow({
 Meteor.methods({
 	uploadFile: function (file) {
 		file.save('/Users/sbarale/Project/meteorjs/breakthecode/public/');
+//		file.save('/nfs/zfs-student/users/2013/aaubin/Dev/Web/breakthecode/public');
 	}
 });

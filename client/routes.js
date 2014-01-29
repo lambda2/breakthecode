@@ -29,7 +29,17 @@ Router.map(function() {
 
 	//Client page
 	this.route('user', {
-		path: '/user/:_id'
+		path: '/user/:_id',
+		before: function () {
+			if (Meteor.user() && Meteor.user().profile.admin == true) {
+				Router.go('manage');
+				this.stop();
+			}
+			else if (!Meteor.user()) {
+				Router.go('home', {error: 1});
+				this.stop();
+			}
+		}
 	});
 
 	//Homepage
@@ -51,7 +61,7 @@ Router.map(function() {
 				this.stop();
 			}
 			else if (Meteor.user()) {
-				Route.go('user', {_id: Meteor.userId()});
+				Router.go('user', {_id: Meteor.userId()});
 				this.stop();
 			}
 		}

@@ -41,17 +41,30 @@
 </template>
 
 <template name="en_jeu">
-	<article>
+<article>
+	{{#unless timer}}
 		<header>
-			<h1>La partie est lancee !</h1>
-			<h2></h2>
+			<h4>Bienvenue au bar</h4>
+			<h2>{{groupname}}</h2>
 		</header>
 		<section>
-		<!-- ... -->
+			<header>
+				<div class="group-picture-draw"></div>
+			</header>
+			<article>
+				<div class="wait-start-qcm">
+					<span>Le jeu va</span>
+					<span>bientot commencer.</span>
+					<span>BE READY !</span>
+				</div>
+			</article>
 		</section>
 		<footer>
 		<!-- ... -->
 		</footer>
+	{{else}}
+		{{> qcmDisplay}}
+	{{/unless}}
 	</article>
 </template>
 
@@ -75,4 +88,36 @@
 			</div>
 		</section>
 	</article>
+</template>
+
+<template name="qcmDisplay">
+	<header>
+		<div class="index-question">
+			<span>Q {{current_index}}/{{total_index}}</span>
+		</div>
+		<div class="curent-question">
+			<span>{{question_courante.question}}</span>
+		</div>
+		</header>
+		<section>
+			<div class="answer-top">
+				<a id="first">
+					<div class="first-button">A</div>
+				</a>
+				<a id="second">
+					<div class="second-button">B</div>
+				</a>
+			</div>
+			<div class="answer-bottom">
+				<a id="third">
+				<div class="third-button">C</div>
+				</a>
+				<a id="last">
+					<div class="last-button">D</div>
+				</a>
+			</div>
+		</section>
+		<footer>
+			<progress id="timer-user" value="{{ timerUser }}" max="100" min="0">
+		</footer>
 </template>

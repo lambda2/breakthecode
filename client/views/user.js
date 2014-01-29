@@ -84,3 +84,91 @@ Template.groupe.events({
 		}});
 	}
 });
+
+Template.en_jeu.helpers({
+	timer: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].timer;
+	},
+	groupname: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].group_name;
+	},
+	grouppic: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].picture_name;
+	}
+});
+
+Template.qcmDisplay.helpers({
+	current_index: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].current_index;
+	},
+	total_index: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].total_index;
+	},
+	question_courante: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		return queue[0].question_courante;
+	},
+	timerUser: function () {
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		if (!Session.get("user_timer_ans") && queue[0].timer) {
+			return Session.set("user_timer_ans", 100);
+		}
+		else {
+			return Session.get("user_time_ans");
+		}
+	}
+});
+
+Template.qcmDisplay.events({
+	'click #first': function (event, tmpl) {
+		$("#second").attr("disabled", "disabled");
+		$("#third").attr("disabled", "disabled");
+		$("#last").attr("disabled", "disabled");
+
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+
+		Queue.update({_id : queue[0]._id}, {$set : {
+			reponse: 0
+		}});
+	},
+	'click #second': function (event, tmpl) {
+		$("#first").attr("disabled", "disabled");
+		$("#third").attr("disabled", "disabled");
+		$("#last").attr("disabled", "disabled");
+
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+
+		Queue.update({_id : queue[0]._id}, {$set : {
+			reponse: 1
+		}});
+	},
+	'click #third': function (event, tmpl) {
+		$("#second").attr("disabled", "disabled");
+		$("#first").attr("disabled", "disabled");
+		$("#last").attr("disabled", "disabled");
+
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+
+		Queue.update({_id : queue[0]._id}, {$set : {
+			reponse: 2
+		}});
+	},
+	'click #last': function (event, tmpl) {
+		$("#second").attr("disabled", "disabled");
+		$("#third").attr("disabled", "disabled");
+		$("#first").attr("disabled", "disabled");
+
+		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
+
+		Queue.update({_id : queue[0]._id}, {$set : {
+			reponse: 3
+		}});
+	}
+});
+
+

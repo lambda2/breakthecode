@@ -390,6 +390,7 @@ var launchTimer = function(callback)
 	}, 100);
 	Meteor.setTimeout(function()
 	{
+		Session.set("quizz_timer", 0);
 		callback();
 		timerIsOff();
 	}, 10000);
@@ -470,6 +471,17 @@ Template.roundstart.helpers({
 			return ("");
 		else
 			return (Session.get("quizz_timer"));
+	},
+	event_button: function()
+	{
+		if (Session.get("quizz_timer") == undefined)
+		{
+			return '<button id="question_start">Go !</button>'
+		}
+		else if (Session.get("quizz_timer") == 0)
+		{
+			return '<button id="question_next">Question suivante !</button>'
+		}
 	}
 });
 
@@ -481,9 +493,15 @@ Template.roundstart.events(
 		launchTimer(function(){
 			console.log("Fin de la question !");
 			recalculateScores();
-			nextQuestion();
+			//nextQuestion();
 		});
 		console.log("Top chrono !");
+	},
+	'click #question_next': function(event, template)
+	{
+		Session.set("quizz_timer", undefined);
+		nextQuestion();
+		console.log("Qustion suivante !");
 	}
 });
 

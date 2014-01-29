@@ -123,14 +123,16 @@ Template.qcmDisplay.helpers({
 });
 
 Template.qcmDisplay.rendered = function () {
-	if (!Session.get("user_timer"))
+	var t = 100;
+	if (!Session.get("user_timer") && $('#timer-user').val() == t)
 	{
-		Session.set("user_timer", 97);
-		var t = 97;
+		console.log("rendering !");
+		Session.set("user_timer", "launched");
 		
 		var id = Meteor.setInterval(function () {
 			if (t <= 0) {
 				Meteor.clearInterval(id);
+				Session.set("user_timer", undefined);
 			}
 			else
 			{

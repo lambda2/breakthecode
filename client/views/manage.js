@@ -487,13 +487,3 @@ Template.roundstart.events(
 	}
 });
 
-
-
-
-
-
-
-
-
-
-

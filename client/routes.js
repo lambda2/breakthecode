@@ -29,7 +29,17 @@ Router.map(function() {
 
 	//Client page
 	this.route('user', {
-		path: '/user/:_id'
+		path: '/user/:_id',
+		before: function () {
+			if (Meteor.user() && Meteor.user().profile.admin == true) {
+				Router.go('manage');
+				this.stop();
+			}
+			else if (!Meteor.user()) {
+				Router.go('home', {error: 1});
+				this.stop();
+			}
+		}
 	});
 
 	//Homepage
@@ -51,7 +61,6 @@ Router.map(function() {
 				this.stop();
 			}
 			else if (Meteor.user()) {
-
 				// Si l'utilisateur n'est pas dans la file d'attente, on le met !
 				if (Queue.find({user_id: Meteor.userId()}).count() == 0)
 				{
@@ -63,7 +72,6 @@ Router.map(function() {
 						score_round : 0
 					});
 				}
-
 				Router.go('user', {_id: Meteor.userId()});
 				this.stop();
 			}

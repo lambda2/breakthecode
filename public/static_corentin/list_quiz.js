@@ -1,4 +1,3 @@
-
 	var QUIZZ = [
 	{
 		question : "Qui est l'auteur(e) de James Bond?",
@@ -34,7 +33,7 @@
 		question : "Qu'est-ce que Dien Bien Phu?",
 		reponses : [
 			{reponse : "Un type de soupe aux ongles très populaire dans le Sud de la Chine", valid : false},
-			{reponse : "\"bonjour\" en Essonois (patois de l'Esonne)", valid : false},
+			{reponse : "'bonjour' en Essonois (patois de l'Esonne)", valid : false},
 			{reponse : "Un rite japonais qui consiste à séparer les jumeaux à la naissance", valid : false},
 			{reponse : "Une bataille perdue par la France en ex-Indochine", valid : true},
 		],
@@ -111,7 +110,7 @@
 		categorie : "Divertissement"
 	},
 	{
-		question : "Quel est le nom de la famille de mafieux dans \"Le Parrain\"?",
+		question : "Quel est le nom de la famille de mafieux dans "Le Parrain"?",
 		reponses : [
 			{reponse : "Les Sarkozy", valid : false},
 			{reponse : "Les Mafieux", valid : false},
@@ -123,7 +122,7 @@
 	{
 		question : "Quel objectif n'a jamais fait partie des priorités des Anges de la Téléréalité?",
 		reponses : [
-			{reponse : "Devenir une \"star\"", valid : false},
+			{reponse : "Devenir une "star"", valid : false},
 			{reponse : "Devenir un chanteur", valid : false},
 			{reponse : "Devenir un mannequin", valid : false},
 			{reponse : "Devenir un proctologue", valid : true},
@@ -141,7 +140,7 @@
 		categorie : "Divertissement"
 	},
 	{
-		question : "Complétez cet extrait de la chanson \"Ma liberté de penser\" de Florent Pagny: \"Quitte à tout prendre, prenez mes gosses et \"?",
+		question : "Complétez cet extrait de la chanson "Ma liberté de penser" de Florent Pagny: "Quitte à tout prendre, prenez mes gosses et "?",
 		reponses : [
 			{reponse : "Mon poing dans la figure", valid : false},
 			{reponse : "Mon pied dans le derrière", valid : false},
@@ -214,7 +213,7 @@
 		question : "En Russie (encore), que mange-t-on traditionnellement avec de la vodka?",
 		reponses : [
 			{reponse : "Rien, la vodka se suffit à elle-même", valid : false},
-			{reponse : "Un cœur de cheval encore frémissant", valid : false},
+			{reponse : "Un c¿ur de cheval encore frémissant", valid : false},
 			{reponse : "Des chips", valid : false},
 			{reponse : "Des cornichons", valid : true},
 		],
@@ -241,36 +240,3 @@
 		categorie : "Alcool"
 	}
 ]
-
-Template.manage.helpers(
-{
-	nb_users: function()
-	{
-		return (Queue.find().count());
-	},
-	questions: function()
-	{
-		
-		if (Questions.find().fetch().length == 0)
-		{
-			_.each(QUIZZ, function(value, key, list){
-				console.log("value = ", value);
-				Questions.insert(value);
-			});
-		}
-		return Questions.find({}).fetch();
-	}
-});
-
-Template.manage.events(
-{
-	'click #button_start': function(event, template)
-	{
-		var in_queue = Queue.find({status : "attente"}).fetch();
-		_.each(in_queue, function(value, key, list){
-			console.log("updating ", value);
-			Queue.update({_id : value._id}, {$set : {status : "en_jeu"}});
-		});
-		console.log("Debut du quizz !");
-	}
-});

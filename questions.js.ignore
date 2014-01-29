@@ -2,6 +2,39 @@ Quizobar
 
 Rounds de questions
 
+var questions = 
+[
+	{
+		question : "Qui est l'auteur(e) de James Bond ?",
+		reponses : [
+			{reponse : "Ian Fleming", valid : true},
+			{reponse : "Arthur Conan Doyle", valid : false},
+			{reponse : "Mary Shelley", valid : false},
+			{reponse : "Marc Lévy", valid : false},
+		],
+		categorie : "Culture Generale"
+	},
+	{
+		question : "Quelle est la capitale du Bouthan ?",
+		reponses : [
+			{reponse : "Thimphu", valid : true},
+			{reponse : "Kuala Lampur", valid : false},
+			{reponse : "Bandar Seri Begawan", valid : false},
+			{reponse : "Tegucigalpaga", valid : false},
+		],
+		categorie : "Culture Generale"
+	},
+	{
+		question : "A quelle adresse se situe le bureau de Sherlock Holmes ?",
+		reponses : [
+			{reponse : "10 Downing Street", valid : false},
+			{reponse : "221b Baker Street", valid : true},
+			{reponse : "76 Totters Lane", valid : false},
+			{reponse : "36 quai des OrfèËvres", valid : false},
+		],
+		categorie : "Culture Generale"
+	}
+]
 
 Round 1 – Culture Générale :
 

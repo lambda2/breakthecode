@@ -1,61 +1,67 @@
-/*
-** If client is not connected or not admin.
-** Redirect him to homepage
-*/
-if (!Meteor.user || (Meteor.user.profile && !Meteor.user.profile.admin)) {
-	Router.go('home', {error: 1});
-}
-
-Questions = new Meteor.Collection("questions");
 
 Template.manage.helpers(
 {
-  test_variable: function() {
-    return 'Ceci est une variable de test qui est envoyee dans le template "manage"'
-  },
-  questions: function()
-  {
-  	var q = Questions.find().fetch();
-  	if (q.length == 0)
-  	{
-  		//console.log("ya rien dans la bdd !");
-  		// var questions = 
-		// [
-		// 	{
-		// 		question : "Qui est l'auteur(e) de James Bond ?",
-		// 		reponses : [
-		// 			{reponse : "Ian Fleming", valid : true},
-		// 			{reponse : "Arthur Conan Doyle", valid : false},
-		// 			{reponse : "Mary Shelley", valid : false},
-		// 			{reponse : "Marc LŽvy", valid : false},
-		// 		],
-		// 		categorie : "Culture Generale"
-		// 	}
-		// ]
-		Questions.insert(
+	nb_users: function()
+	{
+		return (Queue.find().count());
+	},
+	questions: function()
+	{
+		
+		if (Questions.find().fetch().length == 0)
 		{
-			question : "Qui est l'auteur(e) de James Bond ?",
-			reponses : [
-				{reponse : "Ian Fleming", valid : true},
-				{reponse : "Arthur Conan Doyle", valid : false},
-				{reponse : "Mary Shelley", valid : false},
-				{reponse : "Marc LŽvy", valid : false},
-			],
-			categorie : "Culture Generale"
-		});
-  	}
-  	else
-  	{
-  		console.log("ya de trucs");
-  	}
-  	return (Questions.find().fetch());
-  }
+
+			var questions = 
+			[
+				{
+					question : "Qui est l'auteur(e) de James Bond ?",
+					reponses : [
+						{reponse : "Ian Fleming", valid : true},
+						{reponse : "Arthur Conan Doyle", valid : false},
+						{reponse : "Mary Shelley", valid : false},
+						{reponse : "Marc LŽvy", valid : false},
+					],
+					categorie : "Culture Generale"
+				},
+				{
+					question : "Quelle est la capitale du Bouthan ?",
+					reponses : [
+						{reponse : "Thimphu", valid : true},
+						{reponse : "Kuala Lampur", valid : false},
+						{reponse : "Bandar Seri Begawan", valid : false},
+						{reponse : "Tegucigalpaga", valid : false},
+					],
+					categorie : "Culture Generale"
+				},
+				{
+					question : "A quelle adresse se situe le bureau de Sherlock Holmes ?",
+					reponses : [
+						{reponse : "10 Downing Street", valid : false},
+						{reponse : "221b Baker Street", valid : true},
+						{reponse : "76 Totters Lane", valid : false},
+						{reponse : "36 quai des Orfèvres", valid : false},
+					],
+					categorie : "Culture Generale"
+				}
+			]
+			_.each(questions, function(value, key, list){
+				console.log("value = ", value);
+				Questions.insert(value);
+			});
+		}
+		else
+		{
+			console.log("ya des trucs");
+		}
+		console.log(Questions.find({}).fetch());
+		return Questions.find({}).fetch();
+	}
 });
 
 Template.manage.events(
 {
-  'click #button-drop-db': function(event, template)
-  {
-  	Questions.remove(Questions.find().fetch());
-  }
+	'click #button_start': function(event, template)
+	{
+		console.log("Debut du quizz !");
+	}
 });

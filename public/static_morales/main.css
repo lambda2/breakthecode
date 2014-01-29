@@ -1,6 +1,56 @@
+/*
+Theme Name: Quiz O'bar
+Theme URI: 
+Description: Quiz O'bar css
+Author: Fernan Morales > fernan.moralesayuso@gmail.com
+Version: 1.0
+License: Private
+*/
+
+.body {
+    font-size: 1em;
+    line-height: 1.4;
+    background: #302314; 
+    position: absolute;
+    width: 480px;
+    height: 640px;
+}
+
 .header-container {
     text-align: left;
+    position: relative;
+}
 
+.title {
+	text-align: center;
+	position: relative;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+#bar-title {
+	color: #28723C;
+	text-align: center;
+	font-family: "Haymaker";
+}
+
+#stripe {
+	margin: 20px auto 20px;
+    position:relative;
+    width: 180px;
+    padding: 0 0 0;
+}
+
+.text-container {
+    text-align: center;
+    position: relative;
+    color: #FAAE3D;
+}
+
+.footer-container {
+    text-align: left;
+    position: relative;
+    color: #FAAE3D;
 }
 
 .header-container img
@@ -8,4 +58,89 @@
     height: 100%;
     max-height: 100px;
     width: auto;
+    position: relative;
+}
+
+.text_box {
+		font-size: 2em;
+}
+
+.image_box {
+	background-image: url(assets/photo-thibaud.jpg);
+	background-position: center center;
+	background-size: 350px 375px; 
+	position: relative;
+	width: 350px;
+	height: 350px;
+	border: 8px solid #28723C;
+	margin-left:auto;
+	margin-right:auto;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+}
+
+.hokuto {
+		z-index: -1;
+}
+
+#question_line {
+		color: #ffffff;
+		font-size: 1.5em;
+}
+
+#question-nbr {
+		color: #000000;
+		font-size: 2em;
+}
+
+.submit {
+	-moz-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #28723C), color-stop(1, #28723C) );
+	background:-moz-linear-gradient( center top, #28723C 5%, #28723C 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
+	background-color: #28723C;
+	-webkit-border-top-left-radius:20px;
+	-moz-border-radius-topleft:20px;
+	border-top-left-radius:20px;
+	-webkit-border-top-right-radius:20px;
+	-moz-border-radius-topright:20px;
+	border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-radius-bottomright:20px;
+	border-bottom-right-radius:20px;
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-radius-bottomleft:20px;
+	border-bottom-left-radius:20px;
+	text-indent:0;
+	border:0px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	font-style:normal;
+	height:65px;
+	line-height:65px;
+	width:131px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 0px 0px #689324;
+}
+.submit:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #FAAE3C), color-stop(1, #FAAE3C) );
+	background:-moz-linear-gradient( center top, #FAAE3C 5%, #FAAE3C 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
+	background-color:#FAAE3C;
+	color:#000050;
+}.submit:active {
+	position:relative;
+	top:1px;
+}
+
+p {
+	font-size: 2em;
+	position: relative;
 }

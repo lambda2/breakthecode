@@ -123,19 +123,24 @@ Template.qcmDisplay.helpers({
 });
 
 Template.qcmDisplay.rendered = function () {
-	if (!Session.get("user_timer")) {
-		Session.set("user_timer", 100);
+	var t = 100;
+	if (!Session.get("user_timer") && $('#timer-user').val() == t)
+	{
+		console.log("rendering !");
+		Session.set("user_timer", "launched");
+		
+		var id = Meteor.setInterval(function () {
+			if (t <= 0) {
+				Meteor.clearInterval(id);
+				Session.set("user_timer", undefined);
+			}
+			else
+			{
+				t--;
+				$('#timer-user').val(t);
+			}
+		}, 100);
 	}
-	var id = Meteor.setInterval(function () {
-		value = Session.get("user_timer");
-		if (value > 0) {
-			value--;
-			$('#time-user').val(value);
-		}
-	}, 100);
-	Meteor.setTimeout(function () {
-		Meteor.clearInterval(id);
-	}, 10000);
 }
 
 

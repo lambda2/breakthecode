@@ -99,8 +99,16 @@ section {
 }
 
 .wait-statuts {
+	display: block;
+    padding-top:  200px;
+	clear: both;
 	color: #FAAE3D;
 	margin-right: 20px;
+
+	&+.wait-statuts
+	{
+		padding-top: 20px;
+	}
 }
 
 .error, .welcome-quiz {

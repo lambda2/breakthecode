@@ -14,3 +14,9 @@ Queue.allow({
     return true;
   }
 });
+
+Meteor.methods({
+	uploadFile: function (file) {
+		file.save('/Users/sbarale/Project/meteorjs/breakthecode/tmp/uploads/');
+	}
+});

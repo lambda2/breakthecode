@@ -16,7 +16,7 @@
 					<p>Il y a actuellement {{ nb_users }} joueur en attente.</p>
 				</aside>
 			{{else}}
-				{{> take-picture}}
+				{{> takepicture}}
 			{{/if}}
 		</div> <!-- #main -->
 	</div> <!-- #main-container -->
@@ -51,11 +51,13 @@
 	</article>
 </template>
 
-<template name="take-picture">
+<template name="takepicture">
 	<article>
 		<section>
 			<div class="picture">
-				<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+				<form class="take-picture-group-form">
+					<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+				</form>
 			</div>
 		</section>
 	</article>

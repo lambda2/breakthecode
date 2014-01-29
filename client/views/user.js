@@ -1,6 +1,8 @@
 /*
 ** Users's home
 */
+Files = new Meteor.Collection(null);
+
 Template.user.helpers(
 {
 	take_picture : function () {
@@ -29,5 +31,33 @@ Template.user.helpers(
 	nb_users : function()
 	{
 		return (Queue.find().count());
+	}
+});
+
+Template.takepicture.events({
+	'change input[type=file]': function (e, tmpl) {
+		var input = tmpl.find('input[type=file]');
+		var files = input.files;
+		var file = files[0];
+		var mFile;
+		var queue;
+
+		mFile = new MeteorFile(file, {
+			collection: Files
+		});
+
+		Files.insert(mFile, function (err, res) {
+			mFile.upload(file, "uploadFile");
+		});
+
+		queue = Queue.find({user_id : Meteor.userId()}).fetch();
+		Meteor.users.update({_id : Meteor.userId()}, {$set : {
+			profile: {
+				admin: false,
+				type: "user",
+				picture: true
+			}
+		}});
+		Queue.update({_id : queue[0]._id}, {$set : {picture_name: mFile.name}});
 	}
 });

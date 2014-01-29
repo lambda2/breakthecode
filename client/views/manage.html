@@ -41,7 +41,11 @@
 					</ul>
 				</aside>
 			{{else}}
-				{{> roundstart}}
+				{{#if isSummary}}
+					{{> summary}}
+				{{else}}
+					{{> roundstart}}
+				{{/if}}
 			{{/if}}
 			</div> <!-- #main -->
 		</div> <!-- #main-container -->
@@ -84,10 +88,11 @@
 				<li>
 					<img style="max-height: 100px;" src="{{ picture_name }}">
 					<a>{{ group_name }}</a>
-					<span class="right">[{{ score }} points]</span>
+					<span class="right"> - [{{ score }} points]</span>
 				</li>
 		{{/each}}
 		</ul>
+		{{> progress}}
 	</aside>
 </template>
 
@@ -97,5 +102,30 @@
 		<p>{{ r }} / {{ total }} réponses</p>
 		<p>{{ goor_r }} / {{ r }} bonnes réponses</p>
 	{{/with}}
+</template>
+
+<template name="summary">
+	<article>
+		<header>
+			<h1>Résultat général - <small>Série {{ winner.question_courante.categorie }}</small></h1>
+		</header>
+		<section>
+			<h2>{{ winner.group_name }} a gagné !</h2>
+			<ol>
+			{{#each teams }}
+					<li>
+						<img style="max-height: 100px;" src="{{ picture_name }}">
+						<a>{{ group_name }}</a>
+						<span class="right">[{{ score }} points]</span>
+					</li>
+			{{/each}}
+			</ol>
+		</section>
+		<footer>
+			{{{ event_button }}}
+		</footer>
+	</article>
+	<aside>
+	</aside>
 </template>
 

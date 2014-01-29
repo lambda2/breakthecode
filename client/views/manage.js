@@ -325,6 +325,17 @@ Template.manage.helpers(
 		{
 			return false;
 		}
+	},
+	isSummary: function()
+	{
+		if (Session.get("quizz_state") && Session.get("quizz_state") == "summary")
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 });
 
@@ -348,7 +359,7 @@ Template.manage.events(
 */
 var timerIsOn = function()
 {
-	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	var in_queue = Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch();
 	_.each(in_queue, function(value, key, list)
 	{
 		/* On lance le timer pour tout les joueurs */
@@ -361,7 +372,7 @@ var timerIsOn = function()
 */
 var timerIsOff = function()
 {
-	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	var in_queue = Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch();
 	_.each(in_queue, function(value, key, list)
 	{
 		/* On lance le timer pour tout les joueurs */
@@ -401,18 +412,26 @@ var launchTimer = function(callback)
 */
 var nextQuestion = function()
 {
-	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	var in_queue = Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch();
 	var current_q = Session.get("current_questions");
 	Session.set("question_index", Session.get("question_index") + 1);
-	console.log("Passage a la question " + Session.get("question_index") + " !");
-	_.each(in_queue, function(value, key, list){
-		Queue.update({_id : value._id}, {$set : {
-			question_courante : current_q[Session.get("question_index")],
-			current_index: Session.get("question_index"),
-			total_index: Session.get("question_total")
-		}});
-	});
-	Session.set("quizz_timer", undefined);
+	console.log("Passage a la question " + Session.get("question_index") + " / " + Session.get("question_total") + " !");
+	if (Session.get("question_index")
+		&& Session.get("question_index") !== Session.get("question_total"))
+	{
+		_.each(in_queue, function(value, key, list){
+			Queue.update({_id : value._id}, {$set : {
+				question_courante : current_q[Session.get("question_index")],
+				current_index: Session.get("question_index"),
+				total_index: Session.get("question_total")
+			}});
+		});
+		Session.set("quizz_timer", undefined);
+	}
+	else
+	{
+		Session.set("quizz_state","summary");
+	}
 };
 
 /*
@@ -487,7 +506,7 @@ var recalculateRatios = function()
 */
 var recalculateScores = function()
 {
-	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+	var in_queue = Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch();
 
 	Session.set("", undefined);
 	_.each(in_queue, function(value, key, list)
@@ -529,7 +548,7 @@ Template.roundstart.helpers({
 	*/
 	teams: function()
 	{
-		return (Queue.find({status : "en_jeu"}).fetch());
+		return (Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch());
 	},
 	currentQuestion: function()
 	{
@@ -579,3 +598,14 @@ Template.roundstart.events(
 	}
 });
 
+
+Template.summary.helpers({
+	teams: function()
+	{
+		return (Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch());
+	},
+	winner: function()
+	{
+		return (Queue.find({status : "en_jeu"},{sort:{score: -1}}).fetch()[0]);
+	}
+});

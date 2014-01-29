@@ -419,10 +419,77 @@ var nextQuestion = function()
 ** Va analyser les reponses aux questions, et va recalculer les
 ** scores en consequence.
 */
+var recalculateRatios = function()
+{
+	var in_queue = Queue.find({status : "en_jeu"}).fetch();
+
+	Session.set("ratio_total", undefined);
+	Session.set("ratio_pas_reponses", undefined);
+	Session.set("ratio_bad_reponse", undefined);
+	Session.set("ratio_good_reponse", undefined);
+
+	var ratio_total = 0;
+	var ratio_pas_reponses = 0;
+	var ratio_bad_reponse = 0;
+	var ratio_good_reponse = 0;
+
+	_.each(in_queue, function(value, key, list)
+	{
+		ratio_total++;
+		// Si le joueur a donne une reponse (et qu'elle est valide)
+		if (value.reponse && value.reponse >= 0 && value.reponse < 4)
+		{
+			console.log("value.question_courante[value.reponse]",
+				value.question_courante[value.reponse]);
+			console.log("value.question_courante",
+				value.question_courante, value.reponse);
+			if (value.question_courante.reponses[value.reponse].valid)
+			{
+				ratio_good_reponse++;
+				console.log("Bonne reponse pour " + value.group_name);
+				Queue.update(
+					{_id : value._id},
+					{$inc : {score_round: 1, score: 1}},
+					{ multi: true }
+				);
+			}
+			else
+			{
+				ratio_bad_reponse++;
+				console.log(value.group_name + " n'a pas donne la bonne reponse !");
+			}
+		}
+		else
+		{
+			ratio_pas_reponses++;
+			console.log(value.group_name + " n'a même pas daigné répondre...");
+		}
+		Queue.update(
+			{_id : value._id},
+			{$set : {reponse : undefined}},
+			{ multi: true });
+	});
+	Session.set("ratio_total", ratio_total);
+	Session.set("ratio_pas_reponses", ratio_pas_reponses);
+	Session.set("ratio_bad_reponse", ratio_bad_reponse);
+	Session.set("ratio_good_reponse", ratio_good_reponse);
+	return ({
+		total : ratio_total,
+		pas_r: ratio_pas_reponses,
+		bad_r: ratio_bad_reponse,
+		good_r: ratio_good_reponse
+	});
+}
+
+/*
+** Va analyser les reponses aux questions, et va recalculer les
+** scores en consequence.
+*/
 var recalculateScores = function()
 {
 	var in_queue = Queue.find({status : "en_jeu"}).fetch();
 
+	Session.set("", undefined);
 	_.each(in_queue, function(value, key, list)
 	{
 		// Si le joueur a donne une reponse (et qu'elle est valide)
@@ -442,7 +509,10 @@ var recalculateScores = function()
 				);
 			}
 			else
+			{
+
 				console.log(value.group_name + " n'a pas donne la bonne reponse !");
+			}
 		}
 		else
 			console.log(value.group_name + " n'a même pas daigné répondre...");
@@ -471,6 +541,10 @@ Template.roundstart.helpers({
 			return ("");
 		else
 			return (Session.get("quizz_timer"));
+	},
+	progression: function()
+	{
+		return (undefined);
 	},
 	event_button: function()
 	{

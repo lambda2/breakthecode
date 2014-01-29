@@ -68,7 +68,7 @@ Template.takepicture.events({
 
 Template.groupe.events({
 	'change input#groupName': function (evt) {
-		var name = $('.user-group-form input#groupName').val().trim();
+		var name = $('.user-group input#groupName').val().trim();
 		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
 
 		Queue.update({_id : queue[0]._id}, {$set : {

@@ -151,6 +151,8 @@ Template.qcmDisplay.events({
 		Queue.update({_id : queue[0]._id}, {$set : {
 			reponse: 0
 		}});
+		$("#second,#third,#last").removeClass("green");
+		$("#first").addClass("green");
 	},
 	'click #second': function (event, tmpl) {
 		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
@@ -158,6 +160,9 @@ Template.qcmDisplay.events({
 		Queue.update({_id : queue[0]._id}, {$set : {
 			reponse: 1
 		}});
+		$("#first,#third,#last").removeClass("green");
+		$("#second").addClass("green");
+
 	},
 	'click #third': function (event, tmpl) {
 		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
@@ -165,6 +170,8 @@ Template.qcmDisplay.events({
 		Queue.update({_id : queue[0]._id}, {$set : {
 			reponse: 2
 		}});
+		$("#first,#second,#last").removeClass("green");
+		$("#third").addClass("green");
 	},
 	'click #last': function (event, tmpl) {
 		var queue = Queue.find({user_id : Meteor.userId()}).fetch();
@@ -172,5 +179,7 @@ Template.qcmDisplay.events({
 		Queue.update({_id : queue[0]._id}, {$set : {
 			reponse: 3
 		}});
+		$("#first,#second,#third").removeClass("green");
+		$("#last").addClass("green");
 	}
 });

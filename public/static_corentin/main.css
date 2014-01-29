@@ -20,11 +20,58 @@ h1
 	font-weight: lighter;
 }
 
+h2 {
+	color:#ffffff;
+	font-family: "haymaker";
+	font-weight: lighter;
+}
+
+h3 {
+	color:#28723C;
+	font-family: "haymaker";
+	font-weight: lighter;
+}
+
 body
 {
 	background-image: url(bg-bois.jpg);
 	background-color: #282016;
 	color: white;
+}
+
+#top3 {
+	color:#28723C;
+	font-family: "haymaker";
+	font-weight: bolder;
+	font-size: 1.7em;
+}
+
+#bar-title {
+	color: #28723C;
+	text-align: center;
+	font-family: "haymaker";
+}
+
+.title {
+	text-align: center;
+	position: relative;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.image_box {
+	background-image: url(../static_morales/assets/photo-thibaud.jpg);
+	top: 20px;
+	background-size: 100px 120px; 
+	position: relative;
+	width: 100px;
+	height: 100px;
+	border: 8px solid #28723C;
+	margin-left:auto;
+	margin-right:auto;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
 }
 
 .logo
@@ -36,6 +83,12 @@ body
 	max-width: 25%;
 	height: auto;
 	margin: 1em 0;
+}
+
+#theme {
+	color:#ffffff;
+	font-family: "haymaker";
+	font-weight: lighter;
 }
 
 .footer-container {
@@ -68,9 +121,39 @@ body
 	margin-left: 3%;
 }
 
+.block1bis
+{
+	float:left;
+	text-align: center;
+	width: 45%;
+	height: 400px;
+	margin-left: 3%;
+	margin-top: 12px;
+	margin-bottom: auto;
+	border-left: 1px solid #ffffff;
+	border-right: 1px solid #ffffff;
+}
+
+.block2bis
+{
+	float:right;
+	text-align: center;
+	width: 20%;
+	height: 400px;
+	margin-top: 12px;
+	margin-bottom: auto;
+}
+
 .block1_1
 {
 	width: 100%;
+}
+
+.block1_1bis
+{
+	width: 100%;
+	text-align: center center;
+	vertical-align: center;
 }
 
 .block1_2
@@ -80,11 +163,10 @@ body
 	margin-bottom: 20px;
 	margin-top: 20px;
 	background-color: #fcb94d;
-	padding-top: 10px;
+	padding-top: 20px;
 	text-align: center;
 	color: #000;
 }
-
 
 .block1_3
 {
@@ -117,9 +199,11 @@ body
 .block3
 {
 	float:left;
-	width: 22%;
+	width: 200px;
 	height: 400px;
-	margin-left: 3%;
+	padding: 5px;
+	/*border-left: 1px solid #ffffff;*/
+
 }
 
 .round {

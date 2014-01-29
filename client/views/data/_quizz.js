@@ -1,4 +1,3 @@
-
 	var QUIZZ = [
 	{
 		question : "Qui est l'auteur(e) de James Bond?",
@@ -214,7 +213,7 @@
 		question : "En Russie (encore), que mange-t-on traditionnellement avec de la vodka?",
 		reponses : [
 			{reponse : "Rien, la vodka se suffit à elle-même", valid : false},
-			{reponse : "Un cœur de cheval encore frémissant", valid : false},
+			{reponse : "Un c¿ur de cheval encore frémissant", valid : false},
 			{reponse : "Des chips", valid : false},
 			{reponse : "Des cornichons", valid : true},
 		],
@@ -241,36 +240,3 @@
 		categorie : "Alcool"
 	}
 ]
-
-Template.manage.helpers(
-{
-	nb_users: function()
-	{
-		return (Queue.find().count());
-	},
-	questions: function()
-	{
-		
-		if (Questions.find().fetch().length == 0)
-		{
-			_.each(QUIZZ, function(value, key, list){
-				console.log("value = ", value);
-				Questions.insert(value);
-			});
-		}
-		return Questions.find({}).fetch();
-	}
-});
-
-Template.manage.events(
-{
-	'click #button_start': function(event, template)
-	{
-		var in_queue = Queue.find({status : "attente"}).fetch();
-		_.each(in_queue, function(value, key, list){
-			console.log("updating ", value);
-			Queue.update({_id : value._id}, {$set : {status : "en_jeu"}});
-		});
-		console.log("Debut du quizz !");
-	}
-});
